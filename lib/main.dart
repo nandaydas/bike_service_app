@@ -1,5 +1,5 @@
-import 'package:bike_service_app/view/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'view/User_side/dashboard.dart';
 
 void main() {
   runApp(const MyApp());

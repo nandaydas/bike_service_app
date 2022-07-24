@@ -1,6 +1,6 @@
-import 'package:bike_service_app/view/account_page.dart';
-import 'package:bike_service_app/view/history_page.dart';
-import 'package:bike_service_app/view/s_centeres_page.dart';
+import 'package:bike_service_app/view/Provider_Side/account_page.dart';
+import 'package:bike_service_app/view/Provider_Side/history_page.dart';
+import 'package:bike_service_app/view/Provider_Side/s_centeres_page.dart';
 import 'package:flutter/material.dart';
 
 class MyDashboard extends StatefulWidget {
@@ -13,7 +13,7 @@ class _MyDashboardState extends State<MyDashboard> {
 
   List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
 
-  List _Title = ['Service Centeres', 'Service History', 'My Account'];
+  List _Title = ['Service Requests', 'Service History', 'My Account'];
 
   @override
   Widget build(BuildContext context) {
