@@ -1,3 +1,4 @@
+import 'package:bike_service_app/view/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,7 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "fuck u",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: MyDashboard(),
     );
   }
 }
