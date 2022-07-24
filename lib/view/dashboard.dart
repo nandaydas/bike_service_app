@@ -28,6 +28,7 @@ class _MyDashboardState extends State<MyDashboard> {
           backgroundColor: Colors.white,
           onTap: (index) => setState(() => _currentTab = index),
           currentIndex: _currentTab,
+          showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
               label: 'Service Centeres',
