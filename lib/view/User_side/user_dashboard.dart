@@ -16,6 +16,8 @@ class _MyDashboardState extends State<MyDashboard> {
 
   List _Title = ['Service Centers', 'Service History', 'My Account'];
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +26,7 @@ class _MyDashboardState extends State<MyDashboard> {
         title: Text(_Title[_currentTab]),
       ),
       body: _Body[_currentTab],
+      
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,

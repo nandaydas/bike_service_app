@@ -14,8 +14,12 @@ class centersController extends GetxController {
           .get();
       centerList.clear();
       for (var center in centers.docs) {
-        centerList.add(centersModel(center['Name'], center['Image'],
-            center['Services'], center['Location']));
+        centerList.add(centersModel(
+          center['Name'],
+          center['Image'],
+          center['Services'],
+          center['Location'],
+        ));
       }
       isLoading = false;
     } catch (e) {
