@@ -15,6 +15,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      title: 'Auth',
+      title: 'Service App',
       getPages: [
         GetPage(name: '/SIGNUP', page: () => SignIn()),
         GetPage(name: '/OTP', page: () => OTP()),
