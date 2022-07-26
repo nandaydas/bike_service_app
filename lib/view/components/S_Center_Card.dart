@@ -45,11 +45,16 @@ class ScCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)),
+                  Text(
+                    name,
+                    softWrap: false,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                   SizedBox(height: 5),
                   Row(
                     children: [
@@ -60,10 +65,10 @@ class ScCard extends StatelessWidget {
                       ),
                       Text(
                         ' ' + services,
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                        maxLines: 2,
                         softWrap: false,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -76,6 +81,9 @@ class ScCard extends StatelessWidget {
                         size: 14,
                       ),
                       Text(' ' + location,
+                          softWrap: false,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),

@@ -1,5 +1,6 @@
 import 'package:bike_service_app/view/User_side/user_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 enum MobileVerificationState {

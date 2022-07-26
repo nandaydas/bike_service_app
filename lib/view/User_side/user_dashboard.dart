@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'account_page.dart';
 import 'history_page.dart';
-import 's_centeres_page.dart';
+import 's_centers_page.dart';
 
 class MyDashboard extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _MyDashboardState extends State<MyDashboard> {
 
   List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
 
-  List _Title = ['Service Centeres', 'Service History', 'My Account'];
+  List _Title = ['Service Centers', 'Service History', 'My Account'];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _MyDashboardState extends State<MyDashboard> {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-              label: 'Service Centeres',
+              label: 'Service Centers',
               icon: Icon(Icons.garage_outlined),
             ),
             BottomNavigationBarItem(

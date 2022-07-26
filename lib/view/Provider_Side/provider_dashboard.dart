@@ -3,12 +3,12 @@ import 'package:bike_service_app/view/Provider_Side/history_page.dart';
 import 'package:bike_service_app/view/Provider_Side/s_centeres_page.dart';
 import 'package:flutter/material.dart';
 
-class MyDashboard extends StatefulWidget {
+class ProviderDashboard extends StatefulWidget {
   @override
-  State<MyDashboard> createState() => _MyDashboardState();
+  State<ProviderDashboard> createState() => _ProviderDashboardState();
 }
 
-class _MyDashboardState extends State<MyDashboard> {
+class _ProviderDashboardState extends State<ProviderDashboard> {
   int _currentTab = 0;
 
   List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
