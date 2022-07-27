@@ -4,12 +4,12 @@ import 'account_page.dart';
 import 'history_page.dart';
 import 's_centers_page.dart';
 
-class MyDashboard extends StatefulWidget {
+class UserDashboard extends StatefulWidget {
   @override
-  State<MyDashboard> createState() => _MyDashboardState();
+  State<UserDashboard> createState() => _MyDashboardState();
 }
 
-class _MyDashboardState extends State<MyDashboard> {
+class _MyDashboardState extends State<UserDashboard> {
   int _currentTab = 0;
 
   List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
