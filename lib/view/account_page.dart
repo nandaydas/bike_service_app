@@ -1,10 +1,44 @@
 import 'package:bike_service_app/constants/color_const.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AccountPage extends StatelessWidget {
-  final String uid = 'VrOdwpieBBaPbDjskmwTsrHxN7d2';
+class AccountPage extends StatefulWidget {
+  @override
+  State<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
+  String name = 'Loading...';
+  String phone = 'Loading...';
+  String email = '';
+  String image = '';
+  String services = '';
+  String location = '';
+  bool isCustomer = true;
+
+  void getData() async {
+    User? user = await FirebaseAuth.instance.currentUser!;
+    var userData = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user.uid)
+        .get();
+    setState(() {
+      name = userData.data()!["name"];
+      phone = userData.data()!["phone"];
+      email = userData.data()!["email"];
+      image = userData.data()!["image"];
+      services = userData.data()!["services"];
+      location = userData.data()!["location"];
+      isCustomer = userData.data()!["isCustomer"];
+    });
+  }
+
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +51,24 @@ class AccountPage extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: CachedNetworkImage(
+                    placeholder: (context, url) => Container(
+                          color: Colors.grey,
+                          child: Icon(
+                            Icons.image_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                    errorWidget: (context, url, error) => Container(
+                          color: Colors.grey,
+                          child: Icon(
+                            Icons.broken_image_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
                     height: 120,
                     width: 120,
                     fit: BoxFit.cover,
-                    imageUrl:
-                        'https://media.istockphoto.com/photos/millennial-male-team-leader-organize-virtual-workshop-with-employees-picture-id1300972574?b=1&k=20&m=1300972574&s=170667a&w=0&h=2nBGC7tr0kWIU8zRQ3dMg-C5JLo9H2sNUuDjQ5mlYfo='),
+                    imageUrl: image),
               ),
               Positioned(
                 bottom: 1,
@@ -56,12 +103,11 @@ class AccountPage extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20),
-          _ProfileDetails('Name', 'User Name'),
-          _ProfileDetails('Phone', '+91 000000000'),
-          _ProfileDetails('Email', 'username@mail.com'),
-          _ProfileDetails('Services', 'Bike/Car Wash, Reparing'),
-          _ProfileDetails(
-              'Location', 'Netaji Chowmoni, Shop no. 420, Agartala'),
+          _ProfileDetails('Name', name),
+          _ProfileDetails('Phone', phone),
+          _ProfileDetails('Email', email),
+          _ProfileDetails('Services', services),
+          _ProfileDetails('Location', location),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

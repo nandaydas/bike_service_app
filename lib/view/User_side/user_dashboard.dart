@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../account_page.dart';
 import 'history_page.dart';
 import 's_centers_page.dart';
@@ -11,9 +10,7 @@ class UserDashboard extends StatefulWidget {
 
 class _MyDashboardState extends State<UserDashboard> {
   int _currentTab = 0;
-
   List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
-
   List _Title = ['Service Centers', 'Service History', 'My Account'];
 
   @override

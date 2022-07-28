@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       builder: EasyLoading.init(),
       initialBinding: ControllerBinding(),
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
