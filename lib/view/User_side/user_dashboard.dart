@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'account_page.dart';
+import '../account_page.dart';
 import 'history_page.dart';
 import 's_centers_page.dart';
 
@@ -16,8 +16,6 @@ class _MyDashboardState extends State<UserDashboard> {
 
   List _Title = ['Service Centers', 'Service History', 'My Account'];
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +24,6 @@ class _MyDashboardState extends State<UserDashboard> {
         title: Text(_Title[_currentTab]),
       ),
       body: _Body[_currentTab],
-      
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,

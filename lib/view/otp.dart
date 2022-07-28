@@ -1,8 +1,8 @@
-import 'package:bike_service_app/controller/auth_controller.dart';
+import 'package:bike_service_app/constants/color_const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:firebase_core/firebase_core.dart';
+import 'package:bike_service_app/controller/auth_controller.dart';
 
 class OTP extends StatelessWidget {
   OTP({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class OTP extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: primaryColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
