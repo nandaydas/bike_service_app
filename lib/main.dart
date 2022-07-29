@@ -1,4 +1,5 @@
 import 'package:bike_service_app/Binding/controller_binding.dart';
+import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:bike_service_app/view/Provider_Side/provider_dashboard.dart';
 import 'package:bike_service_app/view/User_side/user_dashboard.dart';
 import 'package:bike_service_app/view/otp.dart';

@@ -23,15 +23,24 @@ class AuthController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     focus.addListener(_autofillNo);
     super.onInit();
+    await pageInitiator();
   }
 
   @override
   void onClose() {
     focus.removeListener(_autofillNo);
     super.onClose();
+  }
+
+  Future<void> pageInitiator() async {
+    if (await FirebaseAuth.instance.currentUser != null) {
+      Get.toNamed("USERDASHBOARD");
+    } else {
+      Get.toNamed("SIGNUP");
+    }
   }
 
   String phoneNo = '';
@@ -109,5 +118,14 @@ class AuthController extends GetxController {
       ),
     );
     Get.offAllNamed('HOME');
+  }
+
+  Future logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      pageInitiator();
+    } catch (e) {
+      print(e);
+    }
   }
 }
