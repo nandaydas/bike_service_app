@@ -1,8 +1,10 @@
 import 'package:bike_service_app/constants/color_const.dart';
+import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class _AccountPageState extends State<AccountPage> {
   String image = '';
   String services = '';
   String location = '';
+
+  AuthController ac = Get.find<AuthController>();
 
   void getData() async {
     User? user = await FirebaseAuth.instance.currentUser!;
@@ -125,8 +129,8 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
+                onPressed: () async {
+                  ac.logout();
                 },
                 child: Row(
                   children: [
