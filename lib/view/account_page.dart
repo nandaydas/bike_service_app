@@ -12,11 +12,11 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   String name = 'Loading...';
   String phone = 'Loading...';
+  bool isCustomer = true;
   String email = '';
   String image = '';
   String services = '';
   String location = '';
-  bool isCustomer = true;
 
   void getData() async {
     User? user = await FirebaseAuth.instance.currentUser!;
@@ -27,11 +27,11 @@ class _AccountPageState extends State<AccountPage> {
     setState(() {
       name = userData.data()!["name"];
       phone = userData.data()!["phone"];
+      isCustomer = userData.data()!["isCustomer"];
       email = userData.data()!["email"];
       image = userData.data()!["image"];
       services = userData.data()!["services"];
       location = userData.data()!["location"];
-      isCustomer = userData.data()!["isCustomer"];
     });
   }
 
@@ -125,7 +125,9 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => FirebaseAuth.instance.signOut(),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
                 child: Row(
                   children: [
                     Icon(Icons.logout),
@@ -153,7 +155,7 @@ class _ProfileDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     if (subtitle.toString().isNotEmpty) {
       return Row(children: [
-        SizedBox(width: 20),
+        SizedBox(width: 30),
         Container(
           height: 35,
           width: 7,

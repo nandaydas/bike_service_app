@@ -40,54 +40,56 @@ class ScCard extends StatelessWidget {
                   width: 120,
                   fit: BoxFit.cover,
                 )),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    softWrap: false,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.build_rounded,
-                        color: Colors.grey,
-                        size: 14,
-                      ),
-                      Text(
-                        ' ' + services,
-                        softWrap: false,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_pin,
-                        color: Colors.grey,
-                        size: 14,
-                      ),
-                      Text(' ' + location,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      softWrap: false,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.build_rounded,
+                          color: Colors.grey,
+                          size: 14,
+                        ),
+                        Text(
+                          ' ' + services,
                           softWrap: false,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    ],
-                  ),
-                ],
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_pin,
+                          color: Colors.grey,
+                          size: 14,
+                        ),
+                        Text(' ' + location,
+                            softWrap: false,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 12, color: Colors.grey)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             )
           ],
