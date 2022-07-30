@@ -36,8 +36,24 @@ class AuthController extends GetxController {
   }
 
   Future<void> pageInitiator() async {
-    if (await FirebaseAuth.instance.currentUser != null) {
-      Get.toNamed("USERDASHBOARD");
+    User? user = await FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      firebase
+          .collection('Users')
+          .doc(user.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          bool isServiceProvide = documentSnapshot.get("serviceProvider");
+          if (isServiceProvide) {
+            Get.toNamed("PROVIDERDASHBOARD");
+          } else {
+            Get.toNamed("USERDASHBOARD");
+          }
+        } else {
+          Get.toNamed("REGISTRATION");
+        }
+      });
     } else {
       Get.toNamed("SIGNUP");
     }
@@ -65,7 +81,7 @@ class AuthController extends GetxController {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNo,
         verificationCompleted: (PhoneAuthCredential credential) {
-          Fluttertoast.showToast(msg: 'Verification Completed');
+          Fluttertoast.showToast(msg: 'OTP Sent');
         },
         verificationFailed: (FirebaseAuthException e) {
           Fluttertoast.showToast(msg: 'Verification Failed');
@@ -94,30 +110,16 @@ class AuthController extends GetxController {
       authResult = await auth.signInWithCredential(credential);
 
       if (authResult!.additionalUserInfo!.isNewUser) {
-        registerTheUser();
         EasyLoading.dismiss();
-        Get.toNamed("USERDASHBOARD");
+        Get.toNamed("REGISTRATION");
       } else {
         // loginUser();
         EasyLoading.dismiss();
-        Get.toNamed("USERDASHBOARD");
+        pageInitiator();
       }
     } catch (e) {
       print(e);
     }
-  }
-
-  void registerTheUser() async {
-    await firebase.collection('Users').doc(auth.currentUser!.uid).set(
-      {
-        'uid': auth.currentUser!.uid,
-        'createdAt': Timestamp.now(),
-      },
-      SetOptions(
-        merge: true,
-      ),
-    );
-    Get.offAllNamed('HOME');
   }
 
   Future logout() async {
