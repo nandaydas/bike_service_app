@@ -14,8 +14,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   String name = 'Loading...';
   String phone = 'Loading...';
-  bool isCustomer = true;
-  String email = '';
+  bool serviceProvider = true;
   String image = '';
   String services = '';
   String location = '';
@@ -30,9 +29,8 @@ class _AccountPageState extends State<AccountPage> {
         .get();
     setState(() {
       name = userData.data()!["name"];
-      phone = userData.data()!["phone"];
-      isCustomer = userData.data()!["isCustomer"];
-      email = userData.data()!["email"];
+      phone = userData.data()!["phoneNumber"];
+      image = userData.data()!["serviceProvider"];
       image = userData.data()!["image"];
       services = userData.data()!["services"];
       location = userData.data()!["location"];
@@ -109,7 +107,6 @@ class _AccountPageState extends State<AccountPage> {
           SizedBox(height: 20),
           _ProfileDetails('Name', name),
           _ProfileDetails('Phone', phone),
-          _ProfileDetails('Email', email),
           _ProfileDetails('Services', services),
           _ProfileDetails('Location', location),
           SizedBox(height: 20),

@@ -10,7 +10,7 @@ class ServicesPage extends StatelessWidget {
       //item builder type is compulsory.
       itemBuilder: (context, documentSnapshots, index) {
         final data = documentSnapshots[index].data() as Map?;
-        if (data!['isCustomer'] == false) {
+        if (data!['serviceProvider'] == true) {
           return ScCard(
               data['name'], data['image'], data['services'], data['location']);
         } else {
