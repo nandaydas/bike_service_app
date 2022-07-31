@@ -1,5 +1,5 @@
-import 'package:bike_service_app/view/Provider_Side/history_page.dart';
 import 'package:bike_service_app/view/Provider_Side/s_centeres_page.dart';
+import 'package:bike_service_app/view/history_page.dart';
 import 'package:bike_service_app/view/account_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class ProviderDashboard extends StatefulWidget {
 class _ProviderDashboardState extends State<ProviderDashboard> {
   int _currentTab = 0;
 
-  List _Body = [ServicesPage(), ProviderHistory(), AccountPage()];
+  List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
 
   List _Title = ['Service Requests', 'Service History', 'My Account'];
 

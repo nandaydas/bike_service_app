@@ -15,7 +15,7 @@ class _AccountPageState extends State<AccountPage> {
   String name = 'Loading...';
   String phone = 'Loading...';
   bool serviceProvider = true;
-  String image = '';
+  String image = 'url';
   String services = '';
   String location = '';
 
@@ -28,12 +28,12 @@ class _AccountPageState extends State<AccountPage> {
         .doc(user.uid)
         .get();
     setState(() {
-      name = userData.data()!["name"];
-      phone = userData.data()!["phoneNumber"];
-      image = userData.data()!["serviceProvider"];
-      image = userData.data()!["image"];
-      services = userData.data()!["services"];
-      location = userData.data()!["location"];
+      name = userData.data()!['name'];
+      phone = userData.data()!['phoneNumber'];
+      image = userData.data()!['serviceProvider'];
+      image = userData.data()!['image'];
+      services = userData.data()!['services'];
+      location = userData.data()!['location'];
     });
   }
 

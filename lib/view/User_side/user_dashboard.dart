@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../account_page.dart';
-import 'history_page.dart';
+import '../history_page.dart';
 import 's_centers_page.dart';
 
 class UserDashboard extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:bike_service_app/view/order_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -10,89 +11,97 @@ class ScCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        elevation: 3,
-        child: Row(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                ),
-                child: CachedNetworkImage(
-                  placeholder: (context, url) => Container(
-                    color: Colors.grey,
-                    child: Icon(
-                      Icons.image_rounded,
-                      color: Colors.white,
-                    ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => OrderPage(name)));
+        },
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          elevation: 3,
+          child: Row(
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
                   ),
-                  errorWidget: (context, url, error) => Container(
-                    color: Colors.grey,
-                    child: Icon(
-                      Icons.broken_image_rounded,
-                      color: Colors.white,
+                  child: CachedNetworkImage(
+                    placeholder: (context, url) => Container(
+                      color: Colors.grey,
+                      child: Icon(
+                        Icons.image_rounded,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  imageUrl: image,
-                  height: 80,
-                  width: 120,
-                  fit: BoxFit.cover,
-                )),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      softWrap: false,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                    errorWidget: (context, url, error) => Container(
+                      color: Colors.grey,
+                      child: Icon(
+                        Icons.broken_image_rounded,
+                        color: Colors.white,
+                      ),
                     ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.build_rounded,
-                          color: Colors.grey,
-                          size: 14,
-                        ),
-                        Text(
-                          ' ' + services,
-                          softWrap: false,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_pin,
-                          color: Colors.grey,
-                          size: 14,
-                        ),
-                        Text(' ' + location,
+                    imageUrl: image,
+                    height: 80,
+                    width: 120,
+                    fit: BoxFit.cover,
+                  )),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        softWrap: false,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.build_rounded,
+                            color: Colors.grey,
+                            size: 14,
+                          ),
+                          Text(
+                            ' ' + services,
                             softWrap: false,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12, color: Colors.grey)),
-                      ],
-                    ),
-                  ],
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_pin,
+                            color: Colors.grey,
+                            size: 14,
+                          ),
+                          Text(' ' + location,
+                              softWrap: false,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey)),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
