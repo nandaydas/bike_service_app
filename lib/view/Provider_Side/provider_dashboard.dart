@@ -2,6 +2,9 @@ import 'package:bike_service_app/view/Provider_Side/s_centeres_page.dart';
 import 'package:bike_service_app/view/history_page.dart';
 import 'package:bike_service_app/view/account_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controller/account_controller.dart';
 
 class ProviderDashboard extends StatefulWidget {
   @override
@@ -9,6 +12,8 @@ class ProviderDashboard extends StatefulWidget {
 }
 
 class _ProviderDashboardState extends State<ProviderDashboard> {
+  AccountController ac = Get.find<AccountController>();
+
   int _currentTab = 0;
 
   List _Body = [ServicesPage(), HistoryPage(), AccountPage()];
@@ -17,6 +22,7 @@ class _ProviderDashboardState extends State<ProviderDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    ac.fetchData();
     return Scaffold(
       backgroundColor: Color(0xFFFAFAFA),
       appBar: AppBar(

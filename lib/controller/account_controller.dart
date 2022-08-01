@@ -16,7 +16,6 @@ class AccountController extends GetxController {
   Rx<String> imageUrl = ''.obs;
   Rx<String> services = ''.obs;
   Rx<String> location = ''.obs;
-
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firebase = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -30,8 +29,6 @@ class AccountController extends GetxController {
   TextEditingController? emailController;
   TextEditingController? locationController;
   TextEditingController? servicesController;
-
-  Rx<String> newImageUrl = ''.obs;
   File? imageFile;
   String fileName = '';
 
@@ -52,16 +49,18 @@ class AccountController extends GetxController {
           serviceProvider.value = documentSnapshot.get("serviceProvider");
           services.value = documentSnapshot.get("services");
           location.value = documentSnapshot.get("location");
-          imageUrl.value = await storage
-              .ref()
-              .child(documentSnapshot.get("image"))
-              .getDownloadURL();
+          imageLoad(documentSnapshot.get("image"));
         },
       );
     }
   }
 
+  void imageLoad(String image) async {
+    imageUrl.value = await storage.ref().child(image).getDownloadURL();
+  }
+
   void changeLocation() {
+    fetchData();
     loadTexts();
     Get.toNamed("ACCOUNTEDIT");
   }

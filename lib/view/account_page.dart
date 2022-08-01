@@ -10,7 +10,7 @@ class AccountPage extends StatelessWidget {
   AccountPage({Key? key}) : super(key: key);
 
   AuthController auth_controller = Get.find<AuthController>();
-  AccountController ac = Get.put(AccountController());
+  AccountController ac = Get.find<AccountController>();
 
   @override
   Widget build(BuildContext context) {
