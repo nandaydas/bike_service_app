@@ -1,6 +1,8 @@
 import 'package:bike_service_app/view/order_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ScCard extends StatelessWidget {
   final String name, image, services, location;
@@ -23,30 +25,31 @@ class ScCard extends StatelessWidget {
           child: Row(
             children: [
               ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) => Container(
+                    color: Colors.grey,
+                    child: Icon(
+                      Icons.image_rounded,
+                      color: Colors.white,
+                    ),
                   ),
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) => Container(
-                      color: Colors.grey,
-                      child: Icon(
-                        Icons.image_rounded,
-                        color: Colors.white,
-                      ),
+                  errorWidget: (context, url, error) => Container(
+                    color: Colors.grey,
+                    child: Icon(
+                      Icons.broken_image_rounded,
+                      color: Colors.white,
                     ),
-                    errorWidget: (context, url, error) => Container(
-                      color: Colors.grey,
-                      child: Icon(
-                        Icons.broken_image_rounded,
-                        color: Colors.white,
-                      ),
-                    ),
-                    imageUrl: image,
-                    height: 80,
-                    width: 120,
-                    fit: BoxFit.cover,
-                  )),
+                  ),
+                  imageUrl: image,
+                  height: 80,
+                  width: 120,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(10, 10, 0, 10),

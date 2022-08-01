@@ -60,6 +60,12 @@ class AccountPage extends StatelessWidget {
             else
               return Container();
           }),
+          Obx(() {
+            if (ac.serviceProvider.value == true)
+              return _ProfileDetails('Services', ac.services.value);
+            else
+              return Container();
+          }),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

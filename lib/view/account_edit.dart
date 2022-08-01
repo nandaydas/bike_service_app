@@ -149,6 +149,25 @@ class AccountEdit extends StatelessWidget {
                       );
                     }
                     return Container();
+                  }),
+                  Obx(() {
+                    if (ac.serviceProvider.value) {
+                      return TextField(
+                        controller: ac.servicesController,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Services',
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                            top: 16,
+                            bottom: 16,
+                          ),
+                        ),
+                      );
+                    }
+                    return Container();
                   })
                 ],
               ),

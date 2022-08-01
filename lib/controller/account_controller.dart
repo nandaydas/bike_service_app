@@ -14,6 +14,7 @@ class AccountController extends GetxController {
   Rx<String> email = ''.obs;
   Rx<bool> serviceProvider = false.obs;
   Rx<String> imageUrl = ''.obs;
+  Rx<String> services = ''.obs;
   Rx<String> location = ''.obs;
 
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -28,6 +29,7 @@ class AccountController extends GetxController {
   TextEditingController? phoneNumberController;
   TextEditingController? emailController;
   TextEditingController? locationController;
+  TextEditingController? servicesController;
 
   Rx<String> newImageUrl = ''.obs;
   File? imageFile;
@@ -48,6 +50,7 @@ class AccountController extends GetxController {
           phone.value = documentSnapshot.get("phoneNumber");
           email.value = documentSnapshot.get("email");
           serviceProvider.value = documentSnapshot.get("serviceProvider");
+          services.value = documentSnapshot.get("services");
           location.value = documentSnapshot.get("location");
           imageUrl.value = await storage
               .ref()
@@ -68,6 +71,7 @@ class AccountController extends GetxController {
     phoneNumberController = TextEditingController(text: phone.value);
     emailController = TextEditingController(text: email.value);
     locationController = TextEditingController(text: location.value);
+    servicesController = TextEditingController(text: services.value);
   }
 
   Future pickImage() async {
@@ -108,12 +112,13 @@ class AccountController extends GetxController {
     await firebase.collection('Users').doc(auth.currentUser!.uid).set(
       {
         'uid': auth.currentUser!.uid,
-        'serviceProvider': isServiceProvider.value,
+        'serviceProvider': serviceProvider.value,
         'image': fileName,
         'name': nameController!.text,
         'email': emailController!.text,
         'phoneNumber': phoneNumberController!.text,
-        'location': isServiceProvider.value ? locationController!.text : "",
+        'location': serviceProvider.value ? locationController!.text : "",
+        'services': serviceProvider.value ? servicesController!.text : "",
         'createdAt': Timestamp.now(),
       },
       SetOptions(
