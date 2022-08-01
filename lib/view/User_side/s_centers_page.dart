@@ -1,4 +1,6 @@
 import 'package:bike_service_app/view/components/S_Center_Card.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,17 @@ class ServicesPage extends StatelessWidget {
       //item builder type is compulsory.
       itemBuilder: (context, documentSnapshots, index) {
         final data = documentSnapshots[index].data() as Map?;
+        Rx<String> imageUrl = ''.obs;
         if (data!['serviceProvider'] == true) {
-          return ScCard(
-              data['name'], data['image'], data['services'], data['location']);
+          getImage(data['image'], imageUrl);
+          return Obx(
+            () => ScCard(
+              data['name'],
+              imageUrl.value,
+              data['services'],
+              data['location'],
+            ),
+          );
         } else {
           return SizedBox();
         }
@@ -25,5 +35,10 @@ class ServicesPage extends StatelessWidget {
       isLive: true,
       itemsPerPage: 20,
     );
+  }
+
+  void getImage(String image, Rx<String> imageUrl) async {
+    imageUrl.value =
+        await FirebaseStorage.instance.ref().child(image).getDownloadURL();
   }
 }
