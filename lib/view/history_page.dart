@@ -44,6 +44,7 @@ class _HistoryPageState extends State<HistoryPage> {
       itemBuilderType: PaginateBuilderType.listView,
       // to fetch real-time data
       isLive: true,
+      itemsPerPage: 20,
     );
   }
 }

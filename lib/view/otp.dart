@@ -15,95 +15,101 @@ class OTP extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Align(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SvgPicture.asset(
-                      'assets/message_sent.svg',
-                      height: 180,
-                      width: double.infinity,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'VERIFICATION',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                    ),
-                    Text(
-                      'You wil get an OTP via SMS',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    TextField(
-                      controller: ac.smsController,
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter Your OTP',
-                        border: OutlineInputBorder(),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Align(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: ac.submit,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                      SvgPicture.asset(
+                        'assets/message_sent.svg',
+                        height: 180,
+                        width: double.infinity,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Text(
-                        'Verify',
+                        'VERIFICATION',
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            fontWeight: FontWeight.bold, fontSize: 22),
+                      ),
+                      Text(
+                        'You wil get an OTP via SMS',
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      TextField(
+                        controller: ac.smsController,
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'Enter Your OTP',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 16, horizontal: 20),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                    text: 'Didn\'t receive verfication OTP? ',
-                    style: TextStyle(
-                      color: Colors.black,
+                InkWell(
+                  onTap: ac.submit,
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'Verify',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
-                  TextSpan(
-                      text: 'Resend OTP',
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: 'Didn\'t receive verfication OTP? ',
                       style: TextStyle(
-                        color: primaryColor,
+                        color: Colors.black,
                       ),
-                      recognizer: TapGestureRecognizer()..onTap = () {}),
-                ]),
-              ),
-            ],
+                    ),
+                    TextSpan(
+                        text: 'Resend OTP',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
+                        recognizer: TapGestureRecognizer()..onTap = () {}),
+                  ]),
+                ),
+              ],
+            ),
           ),
         ),
       ),
