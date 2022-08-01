@@ -9,16 +9,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  String userRequired = '';
-
-  void getData() async {
-    User? user = await FirebaseAuth.instance.currentUser!;
-    String userId = user.uid;
-    setState(() {
-      userRequired = userId;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return PaginateFirestore(
