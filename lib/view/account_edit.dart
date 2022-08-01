@@ -1,17 +1,19 @@
-import 'package:bike_service_app/controller/auth_controller.dart';
-import 'package:bike_service_app/controller/registration_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../constants/color_const.dart';
+import '../controller/account_controller.dart';
+import '../controller/auth_controller.dart';
 
-class Registration extends StatelessWidget {
-  const Registration({Key? key}) : super(key: key);
+class AccountEdit extends StatelessWidget {
+  AccountEdit({Key? key}) : super(key: key);
+
+  AuthController auth_controller = Get.find<AuthController>();
+  AccountController ac = Get.put(AccountController());
 
   @override
   Widget build(BuildContext context) {
-    RegistrationController rc = Get.put(RegistrationController());
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.only(
@@ -26,7 +28,7 @@ class Registration extends StatelessWidget {
               child: Column(
                 children: [
                   const Text(
-                    'Regisatration',
+                    'Account Edit',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22,
@@ -58,7 +60,7 @@ class Registration extends StatelessWidget {
                                 height: 120,
                                 width: 120,
                                 fit: BoxFit.cover,
-                                imageUrl: rc.imageUrl.value),
+                                imageUrl: ac.imageUrl.value),
                           ),
                         ),
                         Positioned(
@@ -67,7 +69,7 @@ class Registration extends StatelessWidget {
                           child: Container(
                             child: InkWell(
                               onTap: () async {
-                                rc.pickImage();
+                                ac.pickImage();
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(2.0),
@@ -101,50 +103,8 @@ class Registration extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Account Type : "),
-                        ElevatedButton(
-                          onPressed: () {
-                            rc.isServiceProvider(false);
-                          },
-                          child: Text(
-                            "Customer",
-                            style: TextStyle(
-                                color: rc.isServiceProvider.value
-                                    ? Colors.black
-                                    : Colors.white),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: rc.isServiceProvider.value
-                                ? MaterialStateProperty.all(Colors.white)
-                                : MaterialStateProperty.all(Colors.blue),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            rc.isServiceProvider(true);
-                          },
-                          child: Text(
-                            "Provider",
-                            style: TextStyle(
-                                color: rc.isServiceProvider.value
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: rc.isServiceProvider.value
-                                ? MaterialStateProperty.all(Colors.blue)
-                                : MaterialStateProperty.all(Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   TextField(
-                    controller: rc.nameController,
+                    controller: ac.nameController,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       hintText: 'Enter Name',
@@ -158,7 +118,7 @@ class Registration extends StatelessWidget {
                     ),
                   ),
                   TextField(
-                    controller: rc.emailController,
+                    controller: ac.emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Enter Email',
@@ -171,25 +131,10 @@ class Registration extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextField(
-                    focusNode: new AlwaysDisabledFocusNode(),
-                    controller: rc.phoneNumberController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Phone Number',
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        top: 16,
-                        bottom: 16,
-                      ),
-                    ),
-                  ),
                   Obx(() {
-                    if (rc.isServiceProvider.value) {
+                    if (ac.serviceProvider.value) {
                       return TextField(
-                        controller: rc.locationController,
+                        controller: ac.locationController,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           hintText: 'Enter Location',
@@ -211,7 +156,7 @@ class Registration extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: InkWell(
-                onTap: rc.signup,
+                onTap: ac.updateData,
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -222,7 +167,7 @@ class Registration extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
-                        'Register',
+                        'Update',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

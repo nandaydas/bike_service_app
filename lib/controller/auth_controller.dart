@@ -76,6 +76,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> verifyPhone(String phoneNo) async {
+    focus.removeListener(_autofillNo);
     try {
       EasyLoading.show(status: "Verifing....");
       await auth.verifyPhoneNumber(
@@ -93,7 +94,6 @@ class AuthController extends GetxController {
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
       EasyLoading.dismiss();
-      focus.removeListener(_autofillNo);
       Get.toNamed("OTP");
     }
     // ignore: empty_catches

@@ -2,6 +2,7 @@ import 'package:bike_service_app/Binding/controller_binding.dart';
 import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:bike_service_app/view/Provider_Side/provider_dashboard.dart';
 import 'package:bike_service_app/view/User_side/user_dashboard.dart';
+import 'package:bike_service_app/view/account_edit.dart';
 import 'package:bike_service_app/view/otp.dart';
 import 'package:bike_service_app/view/signin.dart';
 import 'package:bike_service_app/view/signin_details.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/REGISTRATION', page: () => Registration()),
         GetPage(name: '/USERDASHBOARD', page: () => UserDashboard()),
         GetPage(name: '/PROVIDERDASHBOARD', page: () => ProviderDashboard()),
+        GetPage(name: '/ACCOUNTEDIT', page: () => AccountEdit()),
       ],
       initialRoute: 'SPLASH',
     );
