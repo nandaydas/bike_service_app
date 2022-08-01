@@ -1,4 +1,5 @@
 import 'package:bike_service_app/constants/color_const.dart';
+import 'package:bike_service_app/view/components/textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,23 +47,10 @@ class OTP extends StatelessWidget {
                       SizedBox(
                         height: 50,
                       ),
-                      TextField(
-                        controller: ac.smsController,
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
+                      MyTextField(
+                          textEditingController: ac.smsController,
                           hintText: 'Enter Your OTP',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 20),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                          textInputType: TextInputType.number),
                     ],
                   ),
                 ),

@@ -1,5 +1,5 @@
-import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:bike_service_app/controller/registration_controller.dart';
+import 'package:bike_service_app/view/components/textfield.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,18 +13,13 @@ class Registration extends StatelessWidget {
   Widget build(BuildContext context) {
     RegistrationController rc = Get.put(RegistrationController());
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 42,
-            bottom: 16,
-          ),
-          child: Column(
-            children: [
-              Align(
-                child: Column(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Column(
                   children: [
                     const Text(
                       'Regisatration',
@@ -63,37 +58,41 @@ class Registration extends StatelessWidget {
                                   imageUrl: rc.imageUrl.value),
                             ),
                           ),
-                          Container(
-                            child: InkWell(
-                              onTap: () async {
-                                rc.pickImage();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Icon(Icons.add_a_photo,
-                                    color: Colors.black),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 3,
-                                color: Colors.white,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  50,
+                          Positioned(
+                            right: 1,
+                            bottom: 1,
+                            child: Container(
+                              child: InkWell(
+                                onTap: () async {
+                                  rc.pickImage();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Icon(Icons.add_a_photo,
+                                      color: Colors.black),
                                 ),
                               ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(2, 4),
-                                  color: Colors.black.withOpacity(
-                                    0.3,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 3,
+                                  color: Colors.white,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    50,
                                   ),
-                                  blurRadius: 3,
                                 ),
-                              ],
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(2, 4),
+                                    color: Colors.black.withOpacity(
+                                      0.3,
+                                    ),
+                                    blurRadius: 3,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -118,7 +117,7 @@ class Registration extends StatelessWidget {
                             style: ButtonStyle(
                               backgroundColor: rc.isServiceProvider.value
                                   ? MaterialStateProperty.all(Colors.white)
-                                  : MaterialStateProperty.all(Colors.blue),
+                                  : MaterialStateProperty.all(primaryColor),
                             ),
                           ),
                           ElevatedButton(
@@ -134,7 +133,7 @@ class Registration extends StatelessWidget {
                             ),
                             style: ButtonStyle(
                               backgroundColor: rc.isServiceProvider.value
-                                  ? MaterialStateProperty.all(Colors.blue)
+                                  ? MaterialStateProperty.all(primaryColor)
                                   : MaterialStateProperty.all(Colors.white),
                             ),
                           ),
@@ -144,46 +143,14 @@ class Registration extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    TextField(
-                      controller: rc.nameController,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
+                    MyTextField(
+                        textEditingController: rc.nameController,
                         hintText: 'Enter Name',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        contentPadding: EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          top: 16,
-                          bottom: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      controller: rc.emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
+                        textInputType: TextInputType.text),
+                    MyTextField(
+                        textEditingController: rc.emailController,
                         hintText: 'Enter Email',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        contentPadding: EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          top: 16,
-                          bottom: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                        textInputType: TextInputType.emailAddress),
                     TextField(
                       focusNode: new AlwaysDisabledFocusNode(),
                       controller: rc.phoneNumberController,
@@ -202,66 +169,28 @@ class Registration extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
                     Obx(() {
                       if (rc.isServiceProvider.value) {
-                        return TextField(
-                          controller: rc.locationController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
+                        return MyTextField(
+                            textEditingController: rc.locationController,
                             hintText: 'Enter Location',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            contentPadding: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              top: 16,
-                              bottom: 16,
-                            ),
-                          ),
-                        );
+                            textInputType: TextInputType.text);
                       }
                       return Container();
                     }),
-                    SizedBox(
-                      height: 20,
-                    ),
                     Obx(() {
                       if (rc.isServiceProvider.value) {
-                        return TextField(
-                          controller: rc.servicesController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
+                        return MyTextField(
+                            textEditingController: rc.servicesController,
                             hintText: 'Enter Services',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            contentPadding: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              top: 16,
-                              bottom: 16,
-                            ),
-                          ),
-                        );
+                            textInputType: TextInputType.text);
                       }
 
                       return Container();
                     }),
-                    SizedBox(
-                      height: 20,
-                    ),
                   ],
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: InkWell(
+                InkWell(
                   onTap: rc.signup,
                   child: Container(
                     padding: const EdgeInsets.all(16),
@@ -284,8 +213,8 @@ class Registration extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),
