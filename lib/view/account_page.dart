@@ -1,46 +1,16 @@
 import 'package:bike_service_app/constants/color_const.dart';
+import 'package:bike_service_app/controller/account_controller.dart';
 import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AccountPage extends StatefulWidget {
-  @override
-  State<AccountPage> createState() => _AccountPageState();
-}
+class AccountPage extends StatelessWidget {
+  AccountPage({Key? key}) : super(key: key);
 
-class _AccountPageState extends State<AccountPage> {
-  String name = 'Loading...';
-  String phone = 'Loading...';
-  bool serviceProvider = true;
-  String image = 'url';
-  String services = '';
-  String location = '';
-
-  AuthController ac = Get.find<AuthController>();
-
-  void getData() async {
-    User? user = await FirebaseAuth.instance.currentUser!;
-    var userData = await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(user.uid)
-        .get();
-    setState(() {
-      name = userData.data()!['name'];
-      phone = userData.data()!['phoneNumber'];
-      image = userData.data()!['serviceProvider'];
-      image = userData.data()!['image'];
-      services = userData.data()!['services'];
-      location = userData.data()!['location'];
-    });
-  }
-
-  void initState() {
-    getData();
-    super.initState();
-  }
+  AuthController auth_controller = Get.find<AuthController>();
+  AccountController ac = Get.put(AccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,69 +22,52 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                child: CachedNetworkImage(
-                    placeholder: (context, url) => Container(
-                          color: Colors.grey,
-                          child: Icon(
-                            Icons.image_rounded,
-                            color: Colors.white,
+                child: Obx(
+                  () => CachedNetworkImage(
+                      placeholder: (context, url) => Container(
+                            color: Colors.grey,
+                            child: Icon(
+                              Icons.image_rounded,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                    errorWidget: (context, url, error) => Container(
-                          color: Colors.grey,
-                          child: Icon(
-                            Icons.broken_image_rounded,
-                            color: Colors.white,
+                      errorWidget: (context, url, error) => Container(
+                            color: Colors.grey,
+                            child: Icon(
+                              Icons.broken_image_rounded,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                    height: 120,
-                    width: 120,
-                    fit: BoxFit.cover,
-                    imageUrl: image),
-              ),
-              Positioned(
-                bottom: 1,
-                right: 1,
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Icon(Icons.add_a_photo, color: Colors.black),
-                  ),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 3,
-                        color: Colors.white,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          50,
-                        ),
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(2, 4),
-                          color: Colors.black.withOpacity(
-                            0.3,
-                          ),
-                          blurRadius: 3,
-                        ),
-                      ]),
+                      height: 120,
+                      width: 120,
+                      fit: BoxFit.cover,
+                      imageUrl: ac.imageUrl.value),
                 ),
               ),
             ],
           ),
           SizedBox(height: 20),
-          _ProfileDetails('Name', name),
-          _ProfileDetails('Phone', phone),
-          _ProfileDetails('Services', services),
-          _ProfileDetails('Location', location),
+          Obx(() => _ProfileDetails('Name', ac.name.value)),
+          Obx(
+            () => _ProfileDetails('Phone', ac.phone.value),
+          ),
+          Obx(
+            () => _ProfileDetails('Email', ac.email.value),
+          ),
+          Obx(() {
+            if (ac.serviceProvider.value == true)
+              return _ProfileDetails('Location', ac.location.value);
+            else
+              return Container();
+          }),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  ac.changeLocation();
+                },
                 child: Row(
                   children: [
                     Icon(Icons.edit),
@@ -127,7 +80,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  ac.logout();
+                  auth_controller.logout();
                 },
                 child: Row(
                   children: [
