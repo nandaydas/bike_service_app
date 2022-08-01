@@ -28,6 +28,7 @@ class RegistrationController extends GetxController {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+  TextEditingController servicesController = TextEditingController();
   Rx<String> imageUrl = ''.obs;
   File? imageFile;
   String fileName = '';
@@ -84,6 +85,7 @@ class RegistrationController extends GetxController {
         'email': emailController.text,
         'phoneNumber': phoneNumberController.text,
         'location': isServiceProvider.value ? locationController.text : "",
+        'services': isServiceProvider.value ? servicesController.text : "",
         'createdAt': Timestamp.now(),
       },
       SetOptions(
