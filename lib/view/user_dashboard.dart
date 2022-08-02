@@ -1,8 +1,8 @@
 import 'package:bike_service_app/controller/account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../account_page.dart';
-import '../history_page.dart';
+import 'account_page.dart';
+import 'history_page.dart';
 import 's_centers_page.dart';
 
 class UserDashboard extends StatefulWidget {
@@ -22,6 +22,7 @@ class _MyDashboardState extends State<UserDashboard> {
     ac.fetchData();
     return Scaffold(
       backgroundColor: Color(0xFFFAFAFA),
+      drawer: new Drawer(),
       appBar: AppBar(
         title: Text(_Title[_currentTab]),
       ),

@@ -70,33 +70,21 @@ class AccountPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: () {
                   ac.changeLocation();
                 },
-                child: Row(
-                  children: [
-                    Icon(Icons.edit),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text('Edit Profile')
-                  ],
-                ),
+                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                icon: Icon(Icons.edit),
+                label: Text('Edit Profile'),
               ),
-              ElevatedButton(
+              ElevatedButton.icon(
                 onPressed: () async {
                   auth_controller.logout();
                 },
-                child: Row(
-                  children: [
-                    Icon(Icons.logout),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text('Log Out')
-                  ],
-                ),
+                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                icon: Icon(Icons.logout),
+                label: Text(' Log Out '),
               ),
             ],
           ),

@@ -169,6 +169,7 @@ class Registration extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20),
                     Obx(() {
                       if (rc.isServiceProvider.value) {
                         return MyTextField(

@@ -20,6 +20,7 @@ class AccountController extends GetxController {
   FirebaseFirestore firebase = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
   User? user;
+  Rx<String> userId = ''.obs;
   Rx<bool> isServiceProvider = false.obs;
 
   final ImagePicker _picker = ImagePicker();
@@ -43,6 +44,7 @@ class AccountController extends GetxController {
     if (user != null) {
       await firebase.collection('Users').doc(user!.uid).get().then(
         (DocumentSnapshot documentSnapshot) async {
+          userId.value = documentSnapshot.get("uid");
           name.value = documentSnapshot.get("name");
           phone.value = documentSnapshot.get("phoneNumber");
           email.value = documentSnapshot.get("email");

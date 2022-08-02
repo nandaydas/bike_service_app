@@ -1,4 +1,4 @@
-import 'package:bike_service_app/view/components/S_Center_Card.dart';
+import 'package:bike_service_app/view/components/servicecenters_card.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
