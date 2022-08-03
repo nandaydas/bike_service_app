@@ -39,7 +39,9 @@ class HistoryPage extends StatelessWidget {
         });
       },
       // orderBy is compulsory to enable pagination
-      query: FirebaseFirestore.instance.collection('Orders').orderBy('time'),
+      query: FirebaseFirestore.instance
+          .collection('Orders')
+          .orderBy('time', descending: true),
       //Change types accordingly
       itemBuilderType: PaginateBuilderType.listView,
       // to fetch real-time data

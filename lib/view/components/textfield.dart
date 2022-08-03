@@ -25,10 +25,11 @@ class MyTextField extends StatelessWidget {
             fillColor: Colors.white,
             hintText: hintText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-            contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],

@@ -1,22 +1,21 @@
 import 'package:bike_service_app/view/order_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ScCard extends StatelessWidget {
-  final String name, image, services, location;
+  final String name, image, services, location, userId;
 
-  ScCard(this.name, this.image, this.services, this.location);
+  const ScCard(
+      this.name, this.image, this.services, this.location, this.userId);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => OrderPage(name)));
+              MaterialPageRoute(builder: (context) => OrderPage(userId, name)));
         },
         child: Card(
           shape:
@@ -25,21 +24,21 @@ class ScCard extends StatelessWidget {
           child: Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10),
                 ),
                 child: CachedNetworkImage(
                   placeholder: (context, url) => Container(
                     color: Colors.grey,
-                    child: Icon(
+                    child: const Icon(
                       Icons.image_rounded,
                       color: Colors.white,
                     ),
                   ),
                   errorWidget: (context, url, error) => Container(
                     color: Colors.grey,
-                    child: Icon(
+                    child: const Icon(
                       Icons.broken_image_rounded,
                       color: Colors.white,
                     ),
@@ -52,7 +51,7 @@ class ScCard extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -61,42 +60,43 @@ class ScCard extends StatelessWidget {
                         softWrap: false,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.build_rounded,
                             color: Colors.grey,
                             size: 14,
                           ),
                           Text(
-                            ' ' + services,
+                            ' $services',
                             softWrap: false,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.grey),
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.location_pin,
                             color: Colors.grey,
                             size: 14,
                           ),
-                          Text(' ' + location,
+                          Text(' $location',
                               softWrap: false,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey)),
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey)),
                         ],
                       ),
                     ],

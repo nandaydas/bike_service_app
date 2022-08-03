@@ -5,7 +5,7 @@ class ProviderHistory extends StatelessWidget {
   final String name, status, service;
   final Timestamp time;
 
-  ProviderHistory(this.name, this.status, this.service, this.time);
+  const ProviderHistory(this.name, this.status, this.service, this.time);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ProviderHistory extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 3,
         child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
                 Row(
@@ -26,7 +26,7 @@ class ProviderHistory extends StatelessWidget {
                         children: [
                           Text(
                             name,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           Text(
@@ -49,20 +49,22 @@ class ProviderHistory extends StatelessWidget {
                         )),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 if (status == 'Pending')
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text('Confirm'),
-                        style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                        style: ElevatedButton.styleFrom(
+                            shape: const StadiumBorder()),
+                        child: const Text('Confirm'),
                       ),
                       ElevatedButton(
                         onPressed: () {},
-                        child: Text('Cancel'),
-                        style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                        style: ElevatedButton.styleFrom(
+                            shape: const StadiumBorder()),
+                        child: const Text('Cancel'),
                       ),
                     ],
                   ),
