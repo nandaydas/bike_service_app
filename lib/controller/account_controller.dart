@@ -16,6 +16,7 @@ class AccountController extends GetxController {
   Rx<String> imageUrl = ''.obs;
   Rx<String> services = ''.obs;
   Rx<String> location = ''.obs;
+  Rx<String> image = ''.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firebase = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -51,7 +52,8 @@ class AccountController extends GetxController {
           serviceProvider.value = documentSnapshot.get("serviceProvider");
           services.value = documentSnapshot.get("services");
           location.value = documentSnapshot.get("location");
-          imageLoad(documentSnapshot.get("image"));
+          image.value = documentSnapshot.get("image");
+          imageLoad(image.value);
         },
       );
     }
@@ -76,14 +78,14 @@ class AccountController extends GetxController {
   }
 
   Future pickImage() async {
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    final tempImage = await _picker.pickImage(source: ImageSource.gallery);
 
-    if (image != null) {
-      fileName = path.basename(image.path);
+    if (tempImage != null) {
+      fileName = path.basename(tempImage.path);
       String extention = fileName.split('.')[1];
       fileName = auth.currentUser!.uid.toString() + "." + extention;
 
-      imageFile = File(image.path);
+      imageFile = File(tempImage.path);
       try {
         await storage.ref(fileName).putFile(
               imageFile!,
@@ -114,7 +116,7 @@ class AccountController extends GetxController {
       {
         'uid': auth.currentUser!.uid,
         'serviceProvider': serviceProvider.value,
-        'image': fileName,
+        'image': image.value,
         'name': nameController!.text,
         'email': emailController!.text,
         'phoneNumber': phoneNumberController!.text,
