@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
+        TextFormField(
           controller: textEditingController,
           keyboardType: textInputType,
           textAlign: TextAlign.center,
@@ -28,6 +28,7 @@ class MyTextField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
           ),
+          
         ),
         const SizedBox(
           height: 20,

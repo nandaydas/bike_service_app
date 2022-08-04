@@ -14,8 +14,11 @@ class ScCard extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
       child: InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => OrderPage(userId, name)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      OrderPage(userId, name, image, services, location)));
         },
         child: Card(
           shape:
@@ -73,13 +76,15 @@ class ScCard extends StatelessWidget {
                             color: Colors.grey,
                             size: 14,
                           ),
-                          Text(
-                            ' $services',
-                            softWrap: false,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
+                          Expanded(
+                            child: Text(
+                              ' $services',
+                              softWrap: false,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey),
+                            ),
                           ),
                         ],
                       ),
@@ -91,12 +96,14 @@ class ScCard extends StatelessWidget {
                             color: Colors.grey,
                             size: 14,
                           ),
-                          Text(' $location',
-                              softWrap: false,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.grey)),
+                          Expanded(
+                            child: Text(' $location',
+                                softWrap: false,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontSize: 12, color: Colors.grey)),
+                          ),
                         ],
                       ),
                     ],

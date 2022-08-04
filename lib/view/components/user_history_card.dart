@@ -2,10 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserHistory extends StatelessWidget {
-  final String name, status, service;
+  final String name, status, service, orderId;
   final Timestamp time;
 
-  const UserHistory(this.name, this.status, this.service, this.time);
+  const UserHistory(
+      this.name, this.status, this.service, this.time, this.orderId,
+      {Key? key})
+      : super(key: key);
+
+  void updateOrder(String status) {
+    FirebaseFirestore.instance
+        .collection('Orders')
+        .doc(orderId)
+        .update({'status': status});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +48,18 @@ class UserHistory extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(status,
-                      style: TextStyle(
+                  Text(
+                    status,
+                    style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: status == 'Completed'
-                            ? Colors.green
-                            : status == 'Canceled'
-                                ? Colors.red
-                                : Colors.amber,
-                      )),
+                        color: status == 'Pending'
+                            ? Colors.amber
+                            : status == 'Confirmed'
+                                ? Colors.orange
+                                : status == 'Completed'
+                                    ? Colors.green
+                                    : Colors.red),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -55,7 +68,9 @@ class UserHistory extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        updateOrder('Canceled');
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),
                       child: const Text('Cancel'),

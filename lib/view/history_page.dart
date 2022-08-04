@@ -9,7 +9,7 @@ import 'components/provider_history_card.dart';
 class HistoryPage extends StatelessWidget {
   HistoryPage({Key? key}) : super(key: key);
 
-  AccountController ac = Get.find<AccountController>();
+  final AccountController ac = Get.find<AccountController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,7 @@ class HistoryPage extends StatelessWidget {
               data['status'],
               data['service'],
               data['time'],
+              data['orderId'],
             );
           } else if (data['provider'] == ac.userId.value) {
             return ProviderHistory(
@@ -32,6 +33,7 @@ class HistoryPage extends StatelessWidget {
               data['status'],
               data['service'],
               data['time'],
+              data['orderId'],
             );
           } else {
             return SizedBox();
