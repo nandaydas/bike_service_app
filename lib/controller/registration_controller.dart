@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:path/path.dart' as path;
 import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,6 +38,7 @@ class RegistrationController extends GetxController {
     isServiceProvider.value = answer;
   }
 
+  @override
   onInit() async {
     phoneNumberController.text = await auth.currentUser!.phoneNumber!;
     super.onInit();
@@ -46,6 +48,7 @@ class RegistrationController extends GetxController {
     final image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
+      EasyLoading.show(status: "Uploading");
       fileName = path.basename(image.path);
       String extention = fileName.split('.')[1];
       fileName = auth.currentUser!.uid.toString() + "." + extention;
@@ -55,10 +58,12 @@ class RegistrationController extends GetxController {
         await storage.ref(fileName).putFile(
               imageFile!,
             );
-        Fluttertoast.showToast(msg: "Uploaded");
         final storageRef = FirebaseStorage.instance.ref();
         imageUrl.value = await storageRef.child(fileName).getDownloadURL();
-      } catch (e) {}
+        EasyLoading.dismiss();
+      } catch (e) {
+        EasyLoading.dismiss();
+      }
     }
   }
 

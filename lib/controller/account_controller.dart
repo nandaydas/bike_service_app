@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:path/path.dart" as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -81,6 +82,7 @@ class AccountController extends GetxController {
     final tempImage = await _picker.pickImage(source: ImageSource.gallery);
 
     if (tempImage != null) {
+      EasyLoading.show(status: "Uploading");
       fileName = path.basename(tempImage.path);
       String extention = fileName.split('.')[1];
       fileName = auth.currentUser!.uid.toString() + "." + extention;
@@ -93,7 +95,10 @@ class AccountController extends GetxController {
         Fluttertoast.showToast(msg: "Uploaded");
         final storageRef = FirebaseStorage.instance.ref();
         imageUrl.value = await storageRef.child(fileName).getDownloadURL();
-      } catch (e) {}
+        EasyLoading.dismiss();
+      } catch (e) {
+        EasyLoading.dismiss();
+      }
     }
   }
 
@@ -116,7 +121,7 @@ class AccountController extends GetxController {
       {
         'uid': auth.currentUser!.uid,
         'serviceProvider': serviceProvider.value,
-        'image': image.value,
+        'image': fileName.isEmpty ? image.value : fileName,
         'name': nameController!.text,
         'email': emailController!.text,
         'phoneNumber': phoneNumberController!.text,
@@ -128,5 +133,6 @@ class AccountController extends GetxController {
         merge: true,
       ),
     );
+    fileName = '';
   }
 }

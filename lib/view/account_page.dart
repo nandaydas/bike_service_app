@@ -24,17 +24,12 @@ class AccountPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100),
                 child: Obx(
                   () => CachedNetworkImage(
-                      placeholder: (context, url) => Container(
-                            color: Colors.grey,
-                            child: Icon(
-                              Icons.image_rounded,
-                              color: Colors.white,
-                            ),
-                          ),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
                       errorWidget: (context, url, error) => Container(
                             color: Colors.grey,
                             child: Icon(
-                              Icons.broken_image_rounded,
+                              Icons.image_rounded,
                               color: Colors.white,
                             ),
                           ),
