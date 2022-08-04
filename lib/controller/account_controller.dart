@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import "package:path/path.dart" as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +17,7 @@ class AccountController extends GetxController {
   Rx<String> imageUrl = ''.obs;
   Rx<String> services = ''.obs;
   Rx<String> location = ''.obs;
+  Rx<String> image = ''.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firebase = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -51,7 +53,8 @@ class AccountController extends GetxController {
           serviceProvider.value = documentSnapshot.get("serviceProvider");
           services.value = documentSnapshot.get("services");
           location.value = documentSnapshot.get("location");
-          imageLoad(documentSnapshot.get("image"));
+          image.value = documentSnapshot.get("image");
+          imageLoad(image.value);
         },
       );
     }
@@ -76,14 +79,15 @@ class AccountController extends GetxController {
   }
 
   Future pickImage() async {
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    final tempImage = await _picker.pickImage(source: ImageSource.gallery);
 
-    if (image != null) {
-      fileName = path.basename(image.path);
+    if (tempImage != null) {
+      EasyLoading.show(status: "Uploading");
+      fileName = path.basename(tempImage.path);
       String extention = fileName.split('.')[1];
       fileName = auth.currentUser!.uid.toString() + "." + extention;
 
-      imageFile = File(image.path);
+      imageFile = File(tempImage.path);
       try {
         await storage.ref(fileName).putFile(
               imageFile!,
@@ -91,7 +95,10 @@ class AccountController extends GetxController {
         Fluttertoast.showToast(msg: "Uploaded");
         final storageRef = FirebaseStorage.instance.ref();
         imageUrl.value = await storageRef.child(fileName).getDownloadURL();
-      } catch (e) {}
+        EasyLoading.dismiss();
+      } catch (e) {
+        EasyLoading.dismiss();
+      }
     }
   }
 
@@ -114,7 +121,7 @@ class AccountController extends GetxController {
       {
         'uid': auth.currentUser!.uid,
         'serviceProvider': serviceProvider.value,
-        'image': fileName,
+        'image': fileName.isEmpty ? image.value : fileName,
         'name': nameController!.text,
         'email': emailController!.text,
         'phoneNumber': phoneNumberController!.text,
@@ -126,5 +133,6 @@ class AccountController extends GetxController {
         merge: true,
       ),
     );
+    fileName = '';
   }
 }
