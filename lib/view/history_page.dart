@@ -25,6 +25,7 @@ class HistoryPage extends StatelessWidget {
               data['status'],
               data['service'],
               data['time'],
+              data['vehicle'],
               data['orderId'],
             );
           } else if (data['provider'] == ac.userId.value) {
@@ -33,10 +34,11 @@ class HistoryPage extends StatelessWidget {
               data['status'],
               data['service'],
               data['time'],
+              data['vehicle'],
               data['orderId'],
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         });
       },
