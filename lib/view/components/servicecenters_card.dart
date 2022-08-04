@@ -1,6 +1,7 @@
 import 'package:bike_service_app/view/order_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ScCard extends StatelessWidget {
   final String name, image, services, location, userId;
@@ -42,7 +43,7 @@ class ScCard extends StatelessWidget {
                   errorWidget: (context, url, error) => Container(
                     color: Colors.grey,
                     child: const Icon(
-                      Icons.broken_image_rounded,
+                      Icons.image_rounded,
                       color: Colors.white,
                     ),
                   ),

@@ -18,8 +18,11 @@ class AuthController extends GetxController {
   Rx<String> verificationID = ''.obs;
   UserCredential? authResult;
 
+  Rx<bool> otpSent = false.obs;
+
   void _autofillNo() async {
-    phoneNumberController.text = await autoFill.hint ?? '';
+    phoneNumberController.text =
+        await autoFill.hint ?? phoneNumberController.text;
   }
 
   @override
@@ -59,17 +62,19 @@ class AuthController extends GetxController {
     }
   }
 
-  String phoneNo = '';
+  Rx<String> phoneNo = ''.obs;
 
   void signup() {
+    otpSent.value = false;
     if (phoneNumberController.text.length <= 10) {
-      phoneNo = '+91${phoneNumberController.text}';
+      phoneNo.value = '+91${phoneNumberController.text}';
     } else {
-      phoneNo = phoneNumberController.text;
+      phoneNo.value = phoneNumberController.text;
     }
 
-    if (phoneNo.length == 13) {
-      verifyPhone(phoneNo);
+    if (phoneNo.value.length == 13) {
+      verifyPhone(phoneNo.value);
+      Get.toNamed("OTP");
     } else {
       Fluttertoast.showToast(msg: "Phone Number Should Be 10 Digits");
     }
@@ -82,19 +87,22 @@ class AuthController extends GetxController {
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNo,
         verificationCompleted: (PhoneAuthCredential credential) {
-          Fluttertoast.showToast(msg: 'OTP Sent');
+          otpSent.value = true;
         },
         verificationFailed: (FirebaseAuthException e) {
+          otpSent.value = true;
           Fluttertoast.showToast(msg: 'Verification Failed');
         },
         codeSent: (String verificationId, int? resendToken) async {
+          otpSent.value = true;
           verificationID.value = verificationId;
         },
-        timeout: Duration(seconds: 60),
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verificationID.value = verificationId;
+        },
+        timeout: const Duration(seconds: 60),
       );
       EasyLoading.dismiss();
-      Get.toNamed("OTP");
     }
     // ignore: empty_catches
     catch (ignored) {}
@@ -102,7 +110,6 @@ class AuthController extends GetxController {
 
   void submit() async {
     try {
-      EasyLoading.show(status: "Submitting...");
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID.value,
         smsCode: smsController.text,
@@ -110,11 +117,11 @@ class AuthController extends GetxController {
       authResult = await auth.signInWithCredential(credential);
 
       if (authResult!.additionalUserInfo!.isNewUser) {
-        EasyLoading.dismiss();
+        otpSent.value = false;
         Get.toNamed("REGISTRATION");
       } else {
-        // loginUser();
         EasyLoading.dismiss();
+        otpSent.value = false;
         pageInitiator();
       }
     } catch (e) {
@@ -126,8 +133,6 @@ class AuthController extends GetxController {
     try {
       await FirebaseAuth.instance.signOut();
       pageInitiator();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 }
