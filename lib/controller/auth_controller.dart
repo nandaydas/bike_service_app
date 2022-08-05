@@ -49,16 +49,16 @@ class AuthController extends GetxController {
         if (documentSnapshot.exists) {
           bool isServiceProvide = documentSnapshot.get("serviceProvider");
           if (isServiceProvide) {
-            Get.toNamed("PROVIDERDASHBOARD");
+            Get.offAllNamed("PROVIDERDASHBOARD");
           } else {
-            Get.toNamed("USERDASHBOARD");
+            Get.offAllNamed("USERDASHBOARD");
           }
         } else {
-          Get.toNamed("REGISTRATION");
+          Get.offAllNamed("REGISTRATION");
         }
       });
     } else {
-      Get.toNamed("SIGNUP");
+      Get.offAllNamed("SIGNUP");
     }
   }
 
@@ -118,15 +118,13 @@ class AuthController extends GetxController {
 
       if (authResult!.additionalUserInfo!.isNewUser) {
         otpSent.value = false;
-        Get.toNamed("REGISTRATION");
+        Get.offAllNamed("REGISTRATION");
       } else {
         EasyLoading.dismiss();
         otpSent.value = false;
         pageInitiator();
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Future logout() async {
