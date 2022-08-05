@@ -58,6 +58,20 @@ class OrderPage extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               title: Text(providerName),
               background: CachedNetworkImage(
+                placeholder: (context, url) => Container(
+                  color: Colors.grey,
+                  child: const Icon(
+                    Icons.image_rounded,
+                    color: Colors.white,
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.grey,
+                  child: const Icon(
+                    Icons.broken_image_rounded,
+                    color: Colors.white,
+                  ),
+                ),
                 imageUrl: image,
                 fit: BoxFit.cover,
               ),
@@ -151,11 +165,34 @@ class OrderPage extends StatelessWidget {
                           textInputType: TextInputType.text),
                       ElevatedButton.icon(
                         onPressed: () {
-                          final service = serviceController.text;
-                          final vehicle = vehicleController.text;
-                          _createOrder(service: service, vehicle: vehicle);
-                          serviceController.clear();
-                          vehicleController.clear();
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: const Text('Book Apointment'),
+                                    content: Text(
+                                        '${serviceController.text} of ${vehicleController.text} at $providerName'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('No')),
+                                      TextButton(
+                                          onPressed: () {
+                                            final service =
+                                                serviceController.text;
+                                            final vehicle =
+                                                vehicleController.text;
+                                            _createOrder(
+                                                service: service,
+                                                vehicle: vehicle);
+                                            serviceController.clear();
+                                            vehicleController.clear();
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Yes, Sure')),
+                                    ],
+                                  ));
                         },
                         style: ElevatedButton.styleFrom(
                             shape: const StadiumBorder()),

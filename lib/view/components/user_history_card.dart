@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserHistory extends StatelessWidget {
-  final String name, status, service, orderId;
+  final String name, status, service, vehicle, orderId;
   final Timestamp time;
 
-  const UserHistory(
-      this.name, this.status, this.service, this.time, this.orderId,
+  const UserHistory(this.name, this.status, this.service, this.time,
+      this.vehicle, this.orderId,
       {Key? key})
       : super(key: key);
 
@@ -69,7 +69,25 @@ class UserHistory extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        updateOrder('Canceled');
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: const Text('Cancel Order'),
+                                  content: Text('$service of $vehicle'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('No')),
+                                    TextButton(
+                                        onPressed: () {
+                                          updateOrder('Canceled');
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Yes, Cancel')),
+                                  ],
+                                ));
                       },
                       style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder()),

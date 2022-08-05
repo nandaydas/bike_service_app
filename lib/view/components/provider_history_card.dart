@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ProviderHistory extends StatelessWidget {
-  final String name, status, service, orderId;
+  final String name, status, service, vehicle, orderId;
   final Timestamp time;
 
-  const ProviderHistory(
-      this.name, this.status, this.service, this.time, this.orderId,
+  const ProviderHistory(this.name, this.status, this.service, this.time,
+      this.vehicle, this.orderId,
       {Key? key})
       : super(key: key);
 
@@ -70,7 +70,25 @@ class ProviderHistory extends StatelessWidget {
                       if (status == 'Pending')
                         ElevatedButton(
                           onPressed: () {
-                            updateOrder('Confirmed');
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: const Text('Confirm Order'),
+                                      content: Text('$service of $vehicle'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('No')),
+                                        TextButton(
+                                            onPressed: () {
+                                              updateOrder('Confirmed');
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Yes, Confirm')),
+                                      ],
+                                    ));
                           },
                           style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder()),
@@ -79,7 +97,26 @@ class ProviderHistory extends StatelessWidget {
                       if (status == 'Confirmed')
                         ElevatedButton(
                           onPressed: () {
-                            updateOrder('Completed');
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: const Text('Order Completed'),
+                                      content: Text('$service of $vehicle'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('No')),
+                                        TextButton(
+                                            onPressed: () {
+                                              updateOrder('Completed');
+                                              Navigator.of(context).pop();
+                                            },
+                                            child:
+                                                const Text('Yes, Completed')),
+                                      ],
+                                    ));
                           },
                           style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder()),
@@ -87,7 +124,25 @@ class ProviderHistory extends StatelessWidget {
                         ),
                       ElevatedButton(
                         onPressed: () {
-                          updateOrder('Canceled');
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: const Text('Cancel Order'),
+                                    content: Text('$service of $vehicle'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('No')),
+                                      TextButton(
+                                          onPressed: () {
+                                            updateOrder('Canceled');
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Yes, Cancel')),
+                                    ],
+                                  ));
                         },
                         style: ElevatedButton.styleFrom(
                             shape: const StadiumBorder()),
