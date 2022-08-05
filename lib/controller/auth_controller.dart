@@ -29,7 +29,6 @@ class AuthController extends GetxController {
   void onInit() async {
     focus.addListener(_autofillNo);
     super.onInit();
-    await pageInitiator();
   }
 
   @override
