@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class UserHistory extends StatelessWidget {
   final String name, status, service, vehicle, orderId;
@@ -39,11 +40,13 @@ class UserHistory extends StatelessWidget {
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
+                        const SizedBox(height: 2),
                         Text(
                           service,
                         ),
+                        const SizedBox(height: 2),
                         Text(
-                          time.toDate().toString(),
+                          DateFormat('dd-MM-yy  KK:mm a').format(time.toDate()),
                         ),
                       ],
                     ),
