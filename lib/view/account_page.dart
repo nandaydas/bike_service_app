@@ -17,7 +17,7 @@ class AccountPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Stack(
             children: [
               ClipRRect(
@@ -28,7 +28,7 @@ class AccountPage extends StatelessWidget {
                           const CircularProgressIndicator(),
                       errorWidget: (context, url, error) => Container(
                             color: Colors.grey,
-                            child: Icon(
+                            child: const Icon(
                               Icons.image_rounded,
                               color: Colors.white,
                             ),
@@ -41,7 +41,7 @@ class AccountPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Obx(() => _ProfileDetails('Name', ac.name.value)),
           Obx(
             () => _ProfileDetails('Phone', ac.phone.value),
@@ -50,18 +50,20 @@ class AccountPage extends StatelessWidget {
             () => _ProfileDetails('Email', ac.email.value),
           ),
           Obx(() {
-            if (ac.serviceProvider.value == true)
+            if (ac.serviceProvider.value == true) {
               return _ProfileDetails('Location', ac.location.value);
-            else
+            } else {
               return Container();
+            }
           }),
           Obx(() {
-            if (ac.serviceProvider.value == true)
+            if (ac.serviceProvider.value == true) {
               return _ProfileDetails('Services', ac.services.value);
-            else
+            } else {
               return Container();
+            }
           }),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -69,21 +71,21 @@ class AccountPage extends StatelessWidget {
                 onPressed: () {
                   ac.changeLocation();
                 },
-                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                icon: Icon(Icons.edit),
-                label: Text('Edit Profile'),
+                style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+                icon: const Icon(Icons.edit),
+                label: const Text('Edit Profile'),
               ),
               ElevatedButton.icon(
                 onPressed: () async {
                   auth_controller.logout();
                 },
-                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                icon: Icon(Icons.logout),
-                label: Text(' Log Out '),
+                style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+                icon: const Icon(Icons.logout),
+                label: const Text(' Log Out '),
               ),
             ],
           ),
-          Spacer()
+          const Spacer()
         ],
       ),
     );
@@ -98,7 +100,7 @@ class _ProfileDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     if (subtitle.toString().isNotEmpty) {
       return Row(children: [
-        SizedBox(width: 30),
+        const SizedBox(width: 30),
         Container(
           height: 35,
           width: 7,
@@ -107,20 +109,20 @@ class _ProfileDetails extends StatelessWidget {
         Expanded(
           child: Container(
             width: double.infinity,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ],
             ),
@@ -128,7 +130,7 @@ class _ProfileDetails extends StatelessWidget {
         )
       ]);
     } else {
-      return SizedBox();
+      return const SizedBox();
     }
   }
 }

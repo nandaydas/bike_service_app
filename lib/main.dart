@@ -1,5 +1,4 @@
 import 'package:bike_service_app/Binding/controller_binding.dart';
-import 'package:bike_service_app/controller/auth_controller.dart';
 import 'package:bike_service_app/view/provider_dashboard.dart';
 import 'package:bike_service_app/view/user_dashboard.dart';
 import 'package:bike_service_app/view/account_edit.dart';
@@ -35,10 +34,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       getPages: [
-        GetPage(name: '/SPLASH', page: () => SplashScreen()),
-        GetPage(name: '/SIGNUP', page: () => SignIn()),
+        GetPage(name: '/SPLASH', page: () => const SplashScreen()),
+        GetPage(name: '/SIGNUP', page: () => const SignIn()),
         GetPage(name: '/OTP', page: () => OTP()),
-        GetPage(name: '/REGISTRATION', page: () => Registration()),
+        GetPage(name: '/REGISTRATION', page: () => const Registration()),
         GetPage(name: '/USERDASHBOARD', page: () => UserDashboard()),
         GetPage(name: '/PROVIDERDASHBOARD', page: () => ProviderDashboard()),
         GetPage(name: '/ACCOUNTEDIT', page: () => AccountEdit()),
